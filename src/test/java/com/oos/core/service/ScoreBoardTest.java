@@ -1,6 +1,6 @@
-package com.oos.core.model;
+package com.oos.core.service;
 
-import com.oos.core.service.ScoreBoard;
+import com.oos.core.model.Game;
 import com.oos.exceptions.GameNotFoundException;
 import org.junit.jupiter.api.Test;
 
