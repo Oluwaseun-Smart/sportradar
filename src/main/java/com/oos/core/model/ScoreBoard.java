@@ -22,6 +22,9 @@ public class ScoreBoard {
     }
 
     public void finish(int id) {
+        Game game = find(id);
+        game.finish();
+        games.remove(game);
     }
 
     public List<Game> getGames() {

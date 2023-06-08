@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class ScoreBoardTest {
 
@@ -34,7 +34,12 @@ public class ScoreBoardTest {
     @Test
     void finish() {
         ScoreBoard board = new ScoreBoard();
+        board.start(1, "Poland", "Italy");
+        board.update(1, 2, 2);
         board.finish(1);
+
+        final Optional<Game> optional = board.getGames().stream().filter(g -> g.getId() == 1).findFirst();
+        assertFalse(optional.isPresent());
     }
 
     @Test
