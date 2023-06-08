@@ -1,6 +1,7 @@
 package com.oos.core.model;
 
 import com.oos.core.service.ScoreBoard;
+import com.oos.exceptions.GameNotFoundException;
 import org.junit.jupiter.api.Test;
 
 import java.util.Optional;
@@ -33,6 +34,20 @@ public class ScoreBoardTest {
     }
 
     @Test
+    void updateGame_WithInvalid_Id_Should_ThrowException() {
+        Exception exception = assertThrows(GameNotFoundException.class, () -> {
+            ScoreBoard board = new ScoreBoard();
+            board.start(1, "Poland", "Italy");
+            board.update(2, 6, 2);
+        });
+
+        String expectedMessage = "Game with Id 2 does not exist";
+        String actualMessage = exception.getMessage();
+
+        assertTrue(actualMessage.contains(expectedMessage));
+    }
+
+    @Test
     void finish() {
         ScoreBoard board = new ScoreBoard();
         board.start(1, "Poland", "Italy");
@@ -41,6 +56,20 @@ public class ScoreBoardTest {
 
         final Optional<Game> optional = board.getGames().stream().filter(g -> g.getId() == 1).findFirst();
         assertFalse(optional.isPresent());
+    }
+
+    @Test
+    void finishGame_WithInvalid_Id_Should_ThrowException() {
+        Exception exception = assertThrows(GameNotFoundException.class, () -> {
+            ScoreBoard board = new ScoreBoard();
+            board.start(1, "Poland", "Italy");
+            board.finish(2);
+        });
+
+        String expectedMessage = "Game with Id 2 does not exist";
+        String actualMessage = exception.getMessage();
+
+        assertTrue(actualMessage.contains(expectedMessage));
     }
 
     @Test
