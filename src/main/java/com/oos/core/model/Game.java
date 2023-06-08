@@ -5,7 +5,7 @@ import com.oos.exceptions.InvalidStateException;
 import java.time.LocalDateTime;
 import java.util.List;
 
-public class Game {
+public class Game implements Comparable<Game> {
 
     private int id;
     private Team home;
@@ -59,6 +59,11 @@ public class Game {
     }
 
     @Override
+    public String toString() {
+        return String.format("%s %d - %s %d", home.getName(), home.getScore(), away.getName(), away.getScore());
+    }
+
+    @Override
     public int compareTo(Game other) {
         if (this.totalScore() > other.totalScore()) {
             return -1;
@@ -67,31 +72,5 @@ public class Game {
         } else {
             return other.createdAt.compareTo(this.createdAt);
         }
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Game)) return false;
-
-        Game game = (Game) o;
-
-        return getId() == game.getId();
-    }
-
-    @Override
-    public int hashCode() {
-        int result = getId();
-        result = 31 * result + (getHome() != null ? getHome().hashCode() : 0);
-        result = 31 * result + (getAway() != null ? getAway().hashCode() : 0);
-        result = 31 * result + (getStatus() != null ? getStatus().hashCode() : 0);
-        result = 31 * result + (createdAt != null ? createdAt.hashCode() : 0);
-        result = 31 * result + (endAt != null ? endAt.hashCode() : 0);
-        return result;
-    }
-
-    @Override
-    public String toString() {
-        return String.format("%s %d - %s %d", home.getName(), home.getScore(), away.getName(), away.getScore());
     }
 }
