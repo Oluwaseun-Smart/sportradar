@@ -8,6 +8,8 @@ public class ScoreBoard {
     private List<Game> games = new ArrayList<>();
 
     public int start(int id, String home, String away) {
+        Game game = new Game(id, home, away);
+        games.add(game);
         return id;
     }
 
