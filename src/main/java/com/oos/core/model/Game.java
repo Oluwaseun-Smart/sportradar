@@ -1,6 +1,9 @@
 package com.oos.core.model;
 
+import com.oos.exceptions.InvalidStateException;
+
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class Game {
 
@@ -17,5 +20,78 @@ public class Game {
         this.away = new Team(away, Type.AWAY, 0);
         this.status = Status.START;
         this.createdAt = LocalDateTime.now();
+    }
+
+    public void update(int home, int away) {
+        if (List.of(Status.START, Status.PAUSE).contains(status)) {
+            status = Status.IN_PROGRESS;
+        }
+        if (status == Status.FINISH) {
+            throw new InvalidStateException("Game score cannot be updated");
+        }
+
+        this.home.setScore(home);
+        this.away.setScore(away);
+    }
+
+    public void finish() {
+        this.endAt = LocalDateTime.now();
+    }
+
+    private int totalScore() {
+        return this.home.getScore() + this.away.getScore();
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public Team getHome() {
+        return home;
+    }
+
+    public Team getAway() {
+        return away;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    @Override
+    public int compareTo(Game other) {
+        if (this.totalScore() > other.totalScore()) {
+            return -1;
+        } else if (this.totalScore() < other.totalScore()) {
+            return 1;
+        } else {
+            return other.createdAt.compareTo(this.createdAt);
+        }
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Game)) return false;
+
+        Game game = (Game) o;
+
+        return getId() == game.getId();
+    }
+
+    @Override
+    public int hashCode() {
+        int result = getId();
+        result = 31 * result + (getHome() != null ? getHome().hashCode() : 0);
+        result = 31 * result + (getAway() != null ? getAway().hashCode() : 0);
+        result = 31 * result + (getStatus() != null ? getStatus().hashCode() : 0);
+        result = 31 * result + (createdAt != null ? createdAt.hashCode() : 0);
+        result = 31 * result + (endAt != null ? endAt.hashCode() : 0);
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("%s %d - %s %d", home.getName(), home.getScore(), away.getName(), away.getScore());
     }
 }
