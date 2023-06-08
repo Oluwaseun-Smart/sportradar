@@ -54,10 +54,6 @@ public class Game implements Comparable<Game> {
         return away;
     }
 
-    public Status getStatus() {
-        return status;
-    }
-
     @Override
     public String toString() {
         return String.format("%s %d - %s %d", home.getName(), home.getScore(), away.getName(), away.getScore());

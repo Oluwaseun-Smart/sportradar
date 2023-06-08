@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 public class ScoreBoard {
 
@@ -33,7 +34,7 @@ public class ScoreBoard {
     }
 
     public String getSummary() {
-        return "";
+        return games.stream().sorted().map(Game::toString).collect(Collectors.joining("\n"));
     }
 
     private Game find(int id) {

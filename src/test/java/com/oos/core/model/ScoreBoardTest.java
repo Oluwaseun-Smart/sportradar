@@ -44,11 +44,30 @@ public class ScoreBoardTest {
 
     @Test
     void testGetGames() {
+        ScoreBoard board = new ScoreBoard();
+        board.start(1, "Nigeria", "Germany");
+        board.start(2, "France", "Egypt");
+        board.start(3, "Poland", "Kenya");
+        board.start(4, "Australia", "Spain");
+        board.start(5, "Portugal", "China");
 
+        board.update(1, 3, 1);
+        board.update(2, 6, 2);
+        board.update(5, 12, 2);
+
+        assertAll(
+                () -> assertEquals(5, board.getGames().get(0).getId()),
+                () -> assertEquals(2, board.getGames().get(1).getId()),
+                () -> assertEquals(1, board.getGames().get(2).getId())
+        );
     }
 
     @Test
     void getSummary() {
+        ScoreBoard board = new ScoreBoard();
+        board.start(1, "Nigeria", "Germany");
+        board.start(2, "France", "Egypt");
 
+        assertNotNull(board.getSummary());
     }
 }
