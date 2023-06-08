@@ -1,4 +1,5 @@
 package com.oos.core.model;
 
-public class Type {
+public enum  Type {
+    HOME, AWAY
 }
