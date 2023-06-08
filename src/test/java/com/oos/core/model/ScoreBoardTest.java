@@ -1,5 +1,6 @@
 package com.oos.core.model;
 
+import com.oos.core.service.ScoreBoard;
 import org.junit.jupiter.api.Test;
 
 import java.util.Optional;

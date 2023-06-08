@@ -27,7 +27,7 @@ public class Game implements Comparable<Game> {
             status = Status.IN_PROGRESS;
         }
         if (status == Status.FINISH) {
-            throw new InvalidStateException("Game score cannot be updated");
+            throw new InvalidStateException("Game score cannot be updated, Invalid game status.");
         }
 
         this.home.setScore(home);

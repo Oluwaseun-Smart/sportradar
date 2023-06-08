@@ -1,5 +1,6 @@
-package com.oos.core.model;
+package com.oos.core.service;
 
+import com.oos.core.model.Game;
 import com.oos.exceptions.GameNotFoundException;
 
 import java.util.ArrayList;
@@ -39,6 +40,6 @@ public class ScoreBoard {
 
     private Game find(int id) {
         Optional<Game> optional = games.stream().filter(e -> e.getId() == id).findFirst();
-        return optional.orElseThrow(() -> new GameNotFoundException("Game with id " + id + " not found"));
+        return optional.orElseThrow(() -> new GameNotFoundException(String.format("Game with Id %d does not exist", id)));
     }
 }
